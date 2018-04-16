@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    
+
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<link rel="stylesheet"  href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<title>Document</title>
+</head>
+
+
+
+<body onload = "fetchBookmarks()">
+            <form id = "myForm">
+                <input type="number" id="srno" placeholder="Serial No">
+                <input type="name" id="name" placeholder="Name">
+                <input type="number" id="rlno" placeholder="Roll No.">
+                <input type="number" id="marks" placeholder="Marks (500)">
+                <button type="submit" class="btn btn-primary">Add Row</button>
+       </form>
+
+        <table id="myTable">  
+                
+                <thead>  
+                  <tr>  
+                    <th >Sr No.</th>  
+                    <th>Name</th>  
+                    <th>Roll No.</th>  
+                    <th>Marks (500)</th>  
+                    <th>Action</th>  
+                  </tr>  
+                </thead>  
+               
+                <tbody id="studentsResults">   
+                 </tbody>  
+              </table>  
+
+<!--Scripts of js-->
+<script> 
+$(document).ready(function(){
+     $('#myTable').DataTable();
+});   
+
+document.getElementById('myForm').addEventListener('submit', addRow);
+function addRow(e){
+// Get form values
+var srno =document.getElementById('srno').value;
+var name =document.getElementById('name').value;
+var rlno =document.getElementById('rlno').value;
+var marks =document.getElementById('marks').value;
+
+if(!validateForm(rlno, name, marks, srno)){
+    document.getElementById('myForm').reset();
+    return false;
+  }
+
+var student = {
+srno: srno,
+name: name,
+rlno: rlno,
+marks: marks
+}
+
+// Test if students is null
+if(localStorage.getItem('students') === null){
+// Init array
+var students = [];
+// Add to array
+students.push(student);
+// Set to localStorage
+localStorage.setItem('students', JSON.stringify(students));
+} else {
+// Get students from localStorage
+var students = JSON.parse(localStorage.getItem('students'));
+// Add student to array
+students.push(student);
+// Re-set back to localStorage
+localStorage.setItem('students', JSON.stringify(students));
+}
+// Clear form
+document.getElementById('myForm').reset();
+
+// Re-fetch students
+fetchBookmarks();
+
+// Prevent form from submitting
+e.preventDefault();
+}
+
+function fetchBookmarks(){
+
+// Get students from localStorage
+var students = JSON.parse(localStorage.getItem('students'));
+// Get output id
+var studentsResults = document.getElementById('studentsResults');
+
+// Build output
+studentsResults.innerHTML = '';
+//var table = $('#myTable').dataTable( { "bStateSave": true } );
+
+for(var i = 0; i < students.length; i++){
+var srno = students[i].srno;
+var name = students[i].name;
+var rlno = students[i].rlno;
+var marks = students[i].marks;
+studentsResults.innerHTML += '<tr><td data-field="Sr No.">' + srno + '</td>' +
+                            '<td data-field="Name">' + name + '</td>' +   
+                            '<td data-field="Roll No.">' + rlno + '</td>'+  
+                            '<td data-field="Marks (500)">' + marks + '</td>'+  
+                            '<td><btn class=\'btn btn-small\' id=\'1\'> Edit </btn> </td> </tr>'+
+                            ' <a onclick="deleteStudent('+rlno+')" class="btn btn-danger" href="#">Delete</a> ';
+}
+}
+function deleteStudent(rlno){
+
+// Get students from localStorage
+var students = JSON.parse(localStorage.getItem('students'));
+// Loop through the students
+for(var i =0;i < students.length;i++){
+if(students[i].rlno == rlno){
+// Remove from array
+students.splice(i, 1);
+}
+}
+// Re-set back to localStorage
+localStorage.setItem('students', JSON.stringify(students));
+
+// Re-fetch students
+fetchBookmarks();
+}
+// Validate Form
+function validateForm(rlno, name, marks, srno){
+  if(!rlno || !name || !marks|| !srno){
+    alert('Please fill in the form');
+    return false;
+  }
+  var students = JSON.parse(localStorage.getItem('students'));
+  for(var i = 0;i < students.length; i++){
+      if(students[i].rlno == rlno)
+      {
+        alert('Roll number must be unique' );
+        return false;
+      }
+  }
+  return true;
+}
+</script>
+</body>
+</html> 

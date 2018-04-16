@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    
+
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" 
+
+href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" 
+
+src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+ 
+
+<title>Document</title>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".add-row").click(function(){
+                var srno= $("#srno").val();
+                var name = $("#name").val();
+                var  rlno = $("#rlno").val();
+                var marks = $("#marks").val();
+                var markup = "<tr><td>" + srno + "</td><td>" + name + "</td><td>" + rlno + "</td> <td>" + marks + "</td><td> <btn class='btn btn-small' id='#srno'>Edit</btn>  </td></tr>";
+                $("tbody").append(markup);
+            });
+        
+
+        
+        });    
+</script>
+
+
+</head>
+<body>
+    
+    
+
+
+  
+        <form>
+                <input type="number" id="srno" placeholder="Serial No">
+                <input type="name" id="name" placeholder="Name">
+                <input type="number" id="rlno" placeholder="Roll No.">
+                <input type="number" id="marks" placeholder="Marks (500)">
+                <input type="button" class="add-row" value="Add Row">
+       </form>
+
+
+       
+
+
+        <table id="myTable">  
+                
+                <thead>  
+                  <tr>  
+                    <th >Sr No.</th>  
+                    <th>Name</th>  
+                    <th>Roll No.</th>  
+                    <th>Marks (500)</th>  
+                    <th>Action</th>  
+                  </tr>  
+                </thead>  
+                <tbody>  
+                  <tr>  
+                    <td data-field="Sr No.">1</td>  
+                    <td data-field="Name">Rahul</td>  
+                    <td data-field="Roll No.">4521</td>  
+                    <td data-field="Marks (500)">480</td>  
+                    <td><btn class='btn btn-small' id='1'>Edit</btn> </td> 
+                  </tr>  
+                  <tr>  
+                    <td data-field="Sr No.">2</td>  
+                    <td data-field="Name">Amit</td>  
+                    <td data-field="Roll No.">5214</td>  
+                    <td data-field="Marks (500)">390</td> 
+                    <td><btn class='btn btn-small' id='2'>Edit</btn> </td> 
+                  </tr> 
+                    <tr>  
+                    <td data-field="Sr No.">3</td>  
+                    <td data-field="Name">Rahul</td>  
+                    <td data-field="Roll No.">1254</td>  
+                    <td data-field="Marks (500)">400</td> 
+                    <td><btn class='btn btn-small' id='2'>Edit</btn> </td> 
+                  </tr>	
+
+                      <tr>  
+                    <td data-field="Sr No.">4</td>  
+                    <td data-field="Name">Ramu</td>  
+                    <td data-field="Roll No.">1478</td>  
+                    <td data-field="Marks (500)">400</td> 
+                    <td><btn class='btn btn-small' id='2'>Edit</btn> </td> 
+                  </tr>	
+
+                   <tr>  
+                    <td data-field="Sr No.">5</td>  
+                    <td data-field="Name">Lekhni</td>  
+                    <td data-field="Roll No.">1765</td>  
+                    <td data-field="Marks (500)">490</td> 
+                    <td><btn class='btn btn-small' id='2'>Edit</btn> </td> 
+                  </tr>
+                    <tr>  
+                    <td data-field="Sr No.">6</td>  
+                    <td data-field="Name">Shantanu</td>  
+                    <td data-field="Roll No.">1672</td>  
+                    <td data-field="Marks (500)">470</td> 
+                    <td><btn class='btn btn-small' id='2'>Edit</btn> </td> 
+                  </tr>				  
+				   <tr>  
+                    <td data-field="Sr No.">7</td>  
+                    <td data-field="Name">Saurabh</td>  
+                    <td data-field="Roll No.">5213</td>  
+                    <td data-field="Marks (500)">400</td> 
+                    <td><btn class='btn btn-small' id='2'>Edit</btn> </td> 
+                  </tr>
+				   <tr>  
+                    <td data-field="Sr No.">8</td>  
+                    <td data-field="Name">Aarti</td>  
+                    <td data-field="Roll No.">1259</td>  
+                    <td data-field="Marks (500)">220</td> 
+                    <td><btn class='btn btn-small' id='2'>Edit</btn> </td> 
+                  </tr>
+				   <tr>  
+                    <td data-field="Sr No.">9</td>  
+                    <td data-field="Name">Anjali</td>  
+                    <td data-field="Roll No.">0015</td>  
+                    <td data-field="Marks (500)">370</td> 
+                    <td><btn class='btn btn-small' id='2'>Edit</btn> </td> 
+                  </tr>
+				   <tr>  
+                    <td data-field="Sr No.">10</td>  
+                    <td data-field="Name">ANiket</td>  
+                    <td data-field="Roll No.">0016</td>  
+                    <td data-field="Marks (500)">410</td> 
+                    <td><btn class='btn btn-small' id='2'>Edit</btn> </td> 
+                  </tr>
+                </tbody>  
+              </table>  
+
+               
+<script>
+        $(document).ready(function(){
+            $('#myTable').dataTable();
+
+        });
+        
+ </script>
+</body>
+</html> 
